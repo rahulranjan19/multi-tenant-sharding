@@ -24,7 +24,7 @@ public class MultiTenantApplicationConfig {
         List<Parameter> parameters = new ArrayList<Parameter>();
 
         parameters.add(new ParameterBuilder().name("tenantId").description("Tenant Id")
-                .defaultValue("CC").order(1).modelRef(new ModelRef("string")).parameterType("header").required(true)
+                .defaultValue("cc").order(1).modelRef(new ModelRef("string")).parameterType("header").required(true)
                 .build());
 
         return new Docket(DocumentationType.SWAGGER_2).select()

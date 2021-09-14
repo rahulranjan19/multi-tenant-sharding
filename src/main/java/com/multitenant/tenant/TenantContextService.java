@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,7 +13,8 @@ import java.util.Optional;
 @Service
 public class TenantContextService {
 
-    public static final String DEFAULT_DATABASE = "testdb";
+    public static final String DEFAULT_DATABASE = "ccdb";
+
     @Autowired
     private TenantProperties tenantProperties;
 
@@ -67,6 +69,6 @@ public class TenantContextService {
      * @return
      */
     private boolean isEnabled(String tenant) {
-        return !CollectionUtils.isEmpty(tenantProperties.getSchema()) && tenantProperties.getSchema().containsKey(tenant);
+        return !StringUtils.hasLength (tenant) || (!CollectionUtils.isEmpty(tenantProperties.getSchema()) && tenantProperties.getSchema().containsKey(tenant));
     }
 }

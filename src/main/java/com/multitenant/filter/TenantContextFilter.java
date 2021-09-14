@@ -32,7 +32,8 @@ public class TenantContextFilter extends OncePerRequestFilter {
             final String tenantId = request.getHeader("tenantId");
             try {
                 String currentTenant = tenantContextService.setTenantContext(tenantId);
-                if (!StringUtils.hasLength(currentTenant)) {
+                if (!StringUtils.hasLength(currentTenant)
+                        && ignoredList.stream().noneMatch(url -> request.getRequestURI().contains(url))) {
                     log.warn("Tenant id is empty for req: {}", request.getRequestURI());
                 }
                 log.debug("Tenant: {} is set for request: {}", currentTenant, request.getRequestURI());

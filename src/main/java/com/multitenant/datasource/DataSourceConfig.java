@@ -14,16 +14,28 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Primary
-    @Bean(name = "testDataSourceProperties")
-    @ConfigurationProperties("spring.test.datasource")
-    public DataSourceProperties testDataSourceProperties() {
+    @Bean(name = "ccDataSourceProperties")
+    @ConfigurationProperties("spring.cc.datasource")
+    public DataSourceProperties ccDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Primary
-    @Bean(name = "testdb")
-    @ConfigurationProperties("spring.test.datasource.hikari")
-    public DataSource testDataSource(@Qualifier("testDataSourceProperties") DataSourceProperties testDataSourceProperties) {
-        return testDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    @Bean(name = "ccdb")
+    @ConfigurationProperties("spring.cc.datasource.hikari")
+    public DataSource ccdb(@Qualifier("ccDataSourceProperties") DataSourceProperties ccDataSourceProperties) {
+        return ccDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    }
+
+    @Bean(name = "samsDataSourceProperties")
+    @ConfigurationProperties("spring.sams.datasource")
+    public DataSourceProperties samsDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean(name = "samsdb")
+    @ConfigurationProperties("spring.sams.datasource.hikari")
+    public DataSource samsdb(@Qualifier("samsDataSourceProperties") DataSourceProperties samsDataSourceProperties) {
+        return samsDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 }
